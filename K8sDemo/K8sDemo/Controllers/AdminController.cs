@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -93,14 +91,14 @@ namespace K8sDemo.Controllers
         }
 
         [HttpGet("cpuSpike")]
-        public IActionResult CpuSpike()
+        public IActionResult CpuSpike(int limitInSeconds=60)
         {
             Enumerable
                 .Range(1, Environment.ProcessorCount - 1) // replace with lesser number if 100% usage is not what you are after.
                 .AsParallel()
                 .Select(i =>
                 {
-                    var end = DateTime.Now + TimeSpan.FromSeconds(10);
+                    var end = DateTime.Now + TimeSpan.FromSeconds(limitInSeconds);
                     while (DateTime.Now < end)
                         /*nothing here */
                         ;
@@ -133,15 +131,6 @@ namespace K8sDemo.Controllers
                 Thread.Sleep(2 * 1000);
             }
             return Ok("Done");
-        }
-
-        private int GetObjectSize(XmlDocument testObject)
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            MemoryStream ms = new MemoryStream();
-            bf.Serialize(ms, testObject);
-            var array = ms.ToArray();
-            return array.Length;
         }
     }
 }
