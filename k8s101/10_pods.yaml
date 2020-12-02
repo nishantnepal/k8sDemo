@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-01-pods
+  labels:
+    name: demo-01-pods
+spec:
+  containers:
+  - name: aspnetcore-sample
+    image: nishantnepal/aspnetapp:Ingress
+    imagePullPolicy: Always  
+    env:
+      - name: "VersionPathBase"
+        value: "PODS"
+    ports:
+    - containerPort: 80
