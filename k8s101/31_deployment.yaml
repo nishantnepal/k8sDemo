@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: demo-03-deploy
 spec:
-  replicas: 2
+  replicas: 3 #this changed
   selector:
     matchLabels:
       app: demo-03-deploy
@@ -15,9 +15,9 @@ spec:
       containers:
       - name: aspnetcore-sample-dep
         image: nishantnepal/aspnetapp:Ingress
-        #imagePullPolicy: Always  
+        imagePullPolicy: Always  
         env:
           - name: "VersionPathBase"
-            value: "DEPLOY V2"
+            value: "DEPLOY V2" #this changed
         ports:
         - containerPort: 80

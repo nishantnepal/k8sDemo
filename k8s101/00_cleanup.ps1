@@ -5,3 +5,4 @@
 kubectl delete deployments --all --force --grace-period=0
 kubectl delete rs --all --force --grace-period=0
 kubectl delete pods --all --force --grace-period=0
+kubectl delete svc --all --force --grace-period=0

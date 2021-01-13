@@ -26,34 +26,6 @@ namespace K8sDemo.Controllers
             _random = new Random();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var productsUrl = _configuration["ProductBaseUrl"];
-            var productsHost = new Uri(productsUrl).Host;
-            var appEnv = _configuration["AppEnvironment"];
-            var loggingName = _configuration["GtzLoggerFactorySettings:System"];
-            string ipAddress = null;
-            try
-            {
-                ipAddress = (await Dns.GetHostAddressesAsync(productsHost))?.FirstOrDefault().ToString();
-            }
-            catch (Exception ex)
-            {
-                ipAddress = $"None - {ex.Message}";
-            }
-
-            var response = new
-            {
-                ProductsIpAddress = ipAddress,
-                AppEnv = appEnv,
-                LoggingName = loggingName,
-                Version = "V1"
-            };
-
-            return Ok(response);
-        }
-
         [HttpGet("live")]
         public IActionResult HealthLive()
         {
